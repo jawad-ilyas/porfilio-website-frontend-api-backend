@@ -23,9 +23,10 @@ app.use(cookieParser())
 
 import workRouter from "./router/Work.router.js"
 import ProjectCategory from "./router/PorjectCategory,router.js";
-
+import ProjectRouter from "./router/Project.router.js"
 app.use("/api/v1/work", workRouter)
 app.use("/api/v1/projectCategory", ProjectCategory)
+app.use("/api/v1/project", ProjectRouter)
 
 
 export { app }
