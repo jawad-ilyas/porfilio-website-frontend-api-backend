@@ -26,7 +26,10 @@ import ProjectCategory from "./router/PorjectCategory,router.js";
 import ProjectRouter from "./router/Project.router.js"
 import ReviewRouter from "./router/Review.router.js"
 
-
+app.get('/', (req, res) => {
+    // Your logic to fetch and return reviews
+    res.json({ message: 'Fetching reviews...' });
+});
 
 app.use("/api/v1/work", workRouter)
 app.use("/api/v1/projectCategory", ProjectCategory)
