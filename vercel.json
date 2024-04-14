@@ -10,7 +10,20 @@
         {
             "src": "/(.*)",
             "dest": "src/index.js",
-            "methods":[
+            "methods": [
+                "GET",
+                "POST",
+                "PUT",
+                "PATCH",
+                "DELETE",
+                "HEAD",
+                "OPTIONS"
+            ]
+        },
+        {
+            "src": "/api/(.*)",
+            "dest": "src/index.js",
+            "methods": [
                 "GET",
                 "POST",
                 "PUT",
