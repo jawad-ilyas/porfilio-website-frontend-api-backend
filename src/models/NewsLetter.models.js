@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 
-const createNewsLetterSchema = new mongoose.Schema({
+const NewsLetterSchema = new mongoose.Schema({
 
 
     email: {
@@ -21,4 +21,4 @@ const createNewsLetterSchema = new mongoose.Schema({
 }, { timestamps: true })
 
 
-export const CreateNewsLetter = mongoose.model("CreateNewsLetter", createNewsLetterSchema)
+export const NewsLetter = mongoose.model("NewsLetter", NewsLetterSchema)
