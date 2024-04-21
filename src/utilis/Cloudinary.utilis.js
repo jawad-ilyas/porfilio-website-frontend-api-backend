@@ -8,10 +8,10 @@ cloudinary.config({
 
 
 const uploadCloudinary = async (localFilePath) => {
-
     try {
 
         if (!localFilePath) return null;
+        // console.log("cloudinary into try catch ")
         const responseFile = await cloudinary.uploader.upload(localFilePath,
             { public_id: "auto" })
         // console.log("responseFile  : ", responseFile)

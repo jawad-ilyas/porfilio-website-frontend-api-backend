@@ -28,6 +28,7 @@ import ProjectRouter from "./router/Project.router.js"
 import ReviewRouter from "./router/Review.router.js"
 import NewsLetterRouter from './router/NewsLetter.router.js'
 import ExperienceRouter from "./router/Experience.router.js"
+import SkillRouter from "./router/Skill.router.js"
 
 app.use("/api/v1/work", workRouter)
 app.use("/api/v1/projectCategory", ProjectCategory)
@@ -35,6 +36,7 @@ app.use("/api/v1/project", ProjectRouter)
 app.use("/api/v1/review", ReviewRouter)
 app.use("/api/v1/mewsletter", NewsLetterRouter)
 app.use("/api/v1/experience", ExperienceRouter)
+app.use("/api/v1/skill", SkillRouter)
 
 
 
