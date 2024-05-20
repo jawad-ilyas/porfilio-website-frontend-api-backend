@@ -32,7 +32,7 @@ const createSkill = asyncHandler(async (req, res) => {
 
 
     // valiate the image 
-    const iconLocalPath = req.file?.path; // Contains information about the uploaded file
+    const iconLocalPath = await req.file?.path; // Contains information about the uploaded file
     // console.log(" iconLocalPath : ", iconLocalPath)
     if (!iconLocalPath) {
         throw new ApiError(400, "icon is not Updated Succesfully")
@@ -40,7 +40,8 @@ const createSkill = asyncHandler(async (req, res) => {
 
 
     const icon = await uploadCloudinary(iconLocalPath);
-    // console.log(" icon  : "  , icon)
+    
+    console.log(" icon  : "  , icon)
     // console.log("url of the upload file into cloudinary", avatar)
     // add into database 
 
@@ -65,4 +66,13 @@ const fetchSKill = asyncHandler(async (req, res) => {
     console.log("skillDb", skillDb)
     res.status(200).json(new ApiResponse(200, "Skill Section ", skillDb))
 })
-export { createSkill, fetchSKill }
+
+const deleteSkill = asyncHandler(async (req,res)=>{
+
+    console.log("req body " , req.body)
+
+    const deleteSkillResponse = await Skill.deleteOne({_id:req.body.id})
+    console.log("deleteSkillResponse : ", deleteSkillResponse)
+    res.json(new ApiResponse(200 , "Skill is Delete Success fully"))
+})
+export { createSkill, fetchSKill, deleteSkill }

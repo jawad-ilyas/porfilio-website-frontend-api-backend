@@ -2,7 +2,7 @@ import { upload } from "../middlerware/multer.middleware.js";
 import { Work } from "../models/Work.models.js";
 import { ApiError } from "../utilis/ApiError.utilis.js";
 import { ApiResponse } from "../utilis/ApiResponse.js";
-import { uploadCloudinary } from "../utilis/Cloudinary.utilis.js";
+import { deleteCloudinary, uploadCloudinary } from "../utilis/Cloudinary.utilis.js";
 import { asyncHandler } from "../utilis/asyncHandler.utilis.js";
 
 // !! controller for the addWork
@@ -71,21 +71,40 @@ const ShowWork = asyncHandler(async (_, res) => {
 // !! controller For the Delete Work
 const DeleteWork = asyncHandler(async (req, res) => {
 
-    // console.log(req.body)
-
+    console.log(req.body)
+    
     const deleteDataWork = await Work.findById(req.body)
+    
+    console.log("deleteDataWork into work controller ", deleteDataWork);
+    console.log("deleteDataWork into work controller avatar link  ", deleteDataWork.avatar);
+    let avatar = deleteDataWork.avatar;
+    // const filenameWithExtension = avatar.split('/').pop();
+    // // console.log("filenameWithExtension ", filenameWithExtension)
+    // // Step 2: Remove the extension
+    // const filename = filenameWithExtension.split('.').slice(0, -1).join('.');
+    // // console.log("filenameWithExtension.split('.') ", filenameWithExtension.split('.'))
+    // // console.log("filenameWithExtension.split('.').slice(0, -1) ", filenameWithExtension.split('.').slice(0, -1))
 
-    if (deleteDataWork == null) {
-        throw new ApiError(400, "Work is not found")
+    console.log(filename);
+    const deleteImageresponse = await deleteCloudinary(avatar)
+    console.log("deleteImageresponse ", deleteImageresponse.result)
+    if (deleteImageresponse.result === 'ok'){
+        if (deleteDataWork == null) {
+            throw new ApiError(400, "Work is not found")
+        }
+
+        const deleteDataWorkResponse = await Work.deleteOne(req.body)
+        // console.log(deleteDataWorkResponse)
+        const showWorkData = await Work.find();
+
+        if (deleteDataWorkResponse.acknowledged == true) {
+            res.status(200).json(new ApiResponse(204, "Work is Delete Successfully", showWorkData))
+        }
     }
-
-    const deleteDataWorkResponse = await Work.deleteOne(req.body)
-    // console.log(deleteDataWorkResponse)
-    const showWorkData = await Work.find();
-
-    if (deleteDataWorkResponse.acknowledged == true) {
-        res.status(200).json(new ApiResponse(204, "Work is Delete Successfully", showWorkData))
+    else{
+        console.log("image is not delete able ")
     }
+ 
 
 
 })
