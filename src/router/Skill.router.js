@@ -7,7 +7,7 @@ const router = Router();
 
 router.route("/createskill").post(upload.single("icon"), createSkill)
 router.route("/fetchskill").get(fetchSKill)
-router.route("/deleteSkill").put(deleteSkill)
+router.route("/deleteSkill").post(deleteSkill)
 
 
 
